@@ -5,6 +5,11 @@ pragma solidity >=0.5.0 <0.9.0;
 contract Lottery{
 
     address payable[] public players;
+    address manager;
+
+    constructor(){
+        manager = msg.sender;
+    }
 
     receive () payable external{
         require(msg.value == 0.1 ether);
@@ -12,6 +17,7 @@ contract Lottery{
     }
 
     function getBalance() public view returns(uint){
+        require(msg.sender == manager);
         return address(this).balance;
     }
 
@@ -21,6 +27,7 @@ contract Lottery{
 
     function pickWinner() public{
         require (players.length >= 3);
+        require(msg.sender == manager);
 
         uint r = random();
         address payable winner;
