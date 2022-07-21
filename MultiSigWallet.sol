@@ -44,7 +44,7 @@ contract MultiSigWallet{
         _;
     }
 
-    modifier hasApproved(uint _txId){
+    modifier hasApproved(uint _txId) {
         require(approved[_txId][msg.sender],"you haven't approved the transactions");
         _;
     }
